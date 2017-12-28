@@ -1,6 +1,8 @@
+import { mapState, mapMutations, mapGetters } from 'vuex'
+
 export default {
     beforeCreate: function () {
-        
+
     },
     data: function () {
         return {
@@ -9,11 +11,22 @@ export default {
         }
     },
     created: function () {
-        
+
+    },
+    computed: {
+        ...mapState({
+            count: state => state.count
+        }),
+        ...mapGetters({
+            
+        })
     },
     methods: {
-        con: function () {
-            
+        ...mapMutations({
+            add : 'adds'
+        }),
+        hello : function(){
+            console.log('hello')
         }
     }
 };

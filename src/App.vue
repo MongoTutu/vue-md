@@ -61,6 +61,7 @@
 </template>
 
 <script>
+    import { mapGetters, mapMutations } from 'vuex'
     export default {
         name: "app",
         data: function () {
@@ -69,12 +70,21 @@
                 toPage: "slide-right"
             };
         },
+        computed: {
+            
+        },
         watch: {
             $route(to, from) {
-                if (this.$router.goBack == 1) {
+                var nav = this.page();
+                if(nav.length == 0){
+                    this.pagePush(from.path);
+                }
+                if (nav[nav.length - 2] == to.path) {
                     this.toPage = "slide-left";
+                    this.pagePop();
                 } else {
                     this.toPage = "slide-right";
+                    this.pagePush(to.path);
                 }
             }
         },
@@ -84,7 +94,14 @@
             },
             navTo(link) {
                 this.$router.push(link);
-            }
+            },
+            ...mapGetters({
+                page: 'page'
+            }),
+            ...mapMutations({
+                pagePush : 'pagePush',
+                pagePop : 'pagePop'
+            })
         }
     };
 </script>
