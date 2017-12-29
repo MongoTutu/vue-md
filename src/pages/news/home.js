@@ -1,4 +1,5 @@
 import { mapState, mapMutations, mapGetters } from 'vuex'
+import home from '../../api/index.js'
 
 export default {
     beforeCreate: function () {
@@ -11,21 +12,23 @@ export default {
         }
     },
     created: function () {
-
+        home.weibo().then(res => {
+            console.log(res);
+        })
     },
     computed: {
         ...mapState({
             count: state => state.count
         }),
         ...mapGetters({
-            
+
         })
     },
     methods: {
         ...mapMutations({
-            add : 'adds'
+            add: 'adds'
         }),
-        hello : function(){
+        hello: function () {
             console.log('hello')
         }
     }
