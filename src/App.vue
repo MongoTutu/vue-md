@@ -71,11 +71,13 @@
             };
         },
         computed: {
-            
+            ...mapGetters({
+                page: 'page'
+            })
         },
         watch: {
             $route(to, from) {
-                var nav = this.page();
+                var nav = this.page;
                 if(nav.length == 0){
                     this.pagePush(from.path);
                 }
@@ -95,9 +97,9 @@
             navTo(link) {
                 this.$router.push(link);
             },
-            ...mapGetters({
-                page: 'page'
-            }),
+            // ...mapGetters({
+            //     page: 'page'
+            // }),
             ...mapMutations({
                 pagePush : 'pagePush',
                 pagePop : 'pagePop'
